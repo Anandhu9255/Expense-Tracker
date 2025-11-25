@@ -10,11 +10,81 @@ const options = {
       description: "API documentation for Expense Tracker backend",
     },
     servers: [
-      { url: "http://localhost:5000" },
-      { url: "https://expense-tracker-twkk.onrender.com" }
+      { url: "http://localhost:5000", description: "Local Server" },
+      { url: "https://expense-tracker-twkk.onrender.com", description: "Render Deployment" }
     ],
+
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+
+      schemas: {
+        // ---------------- AUTH SCHEMAS ----------------
+        CreateUser: {
+          type: "object",
+          required: ["name", "email", "password"],
+          properties: {
+            name: { type: "string" },
+            email: { type: "string", format: "email" },
+            password: { type: "string", minLength: 6 },
+          },
+        },
+
+        LoginUser: {
+          type: "object",
+          required: ["email", "password"],
+          properties: {
+            email: { type: "string", format: "email" },
+            password: { type: "string" },
+          },
+        },
+
+        // ---------------- EXPENSE SCHEMAS ----------------
+        CreateExpenseRequest: {
+          type: "object",
+          required: ["title", "amount", "category"],
+          properties: {
+            title: { type: "string" },
+            amount: { type: "number" },
+            category: { type: "string" },
+            description: { type: "string" },
+            date: { type: "string", format: "date-time" },
+          },
+        },
+
+        UpdateExpenseRequest: {
+          type: "object",
+          properties: {
+            title: { type: "string" },
+            amount: { type: "number" },
+            category: { type: "string" },
+            description: { type: "string" },
+            date: { type: "string", format: "date-time" },
+          },
+        },
+
+        Expense: {
+          type: "object",
+          properties: {
+            id: { type: "string" },
+            title: { type: "string" },
+            amount: { type: "number" },
+            category: { type: "string" },
+            description: { type: "string" },
+            date: { type: "string", format: "date-time" },
+            user: { type: "string" },
+          },
+        },
+      },
+    },
   },
-  apis: ["./src/routes/*.ts"], // scan route files for docs
+
+  apis: ["./src/routes/*.ts"], // Route scanning
 };
 
 const swaggerSpec = swaggerJSDoc(options);
