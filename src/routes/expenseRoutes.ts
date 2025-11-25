@@ -140,27 +140,7 @@ router.delete('/:id', deleteExpense);
  */
 router.get('/summary/:userId', getExpenseSummaryByUser);
 
-/**
- * @swagger
- * /api/expenses/filter:
- *   get:
- *     summary: Filter expenses for logged-in user
- *     tags: [Expenses]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: category
- *       - in: query
- *         name: minAmount
- *       - in: query
- *         name: maxAmount
- *       - in: query
- *         name: search
- *     responses:
- *       200:
- *         description: Filtered expenses
- */
+// ❌ Swagger for filter REMOVED (endpoint still works)
 router.get('/filter', getFilteredExpensesByUser);
 
 export default router;
