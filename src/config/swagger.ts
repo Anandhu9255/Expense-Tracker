@@ -8,12 +8,12 @@ const options = {
       title: "Expense Tracker API",
       version: "1.0.0",
       description: "API documentation for Expense Tracker backend",
+      xRefresh: "1.0.1"  // 👈🔥 FORCE SWAGGER JSON REBUILD
     },
     servers: [
-  { url: "https://expense-tracker-twkk.onrender.com", description: "Render Deployment" },
-  { url: "http://localhost:5000", description: "Local Server" }
-],
-
+      { url: "https://expense-tracker-twkk.onrender.com", description: "Render Deployment" },
+      { url: "http://localhost:5000", description: "Local Server" }
+    ],
 
     components: {
       securitySchemes: {
@@ -25,7 +25,6 @@ const options = {
       },
 
       schemas: {
-        // ---------------- AUTH SCHEMAS ----------------
         CreateUser: {
           type: "object",
           required: ["name", "email", "password"],
@@ -45,7 +44,6 @@ const options = {
           },
         },
 
-        // ---------------- EXPENSE SCHEMAS ----------------
         CreateExpenseRequest: {
           type: "object",
           required: ["title", "amount", "category"],
@@ -85,7 +83,7 @@ const options = {
     },
   },
 
-  apis: ["./src/routes/*.ts"], // Route scanning
+  apis: ["./src/routes/*.ts"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
