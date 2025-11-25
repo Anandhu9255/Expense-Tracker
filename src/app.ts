@@ -12,30 +12,32 @@ connectDB();
 
 const app = express();
 
-// 👉 FIX CORS COMPLETELY
+// ✅ FIXED CORS (Render + Local)
 app.use(cors({
   origin: [
-    "http://localhost:5000",
-    "http://localhost:3000",         // frontend (if any)
+    "http://localhost:3000",
     "https://expense-tracker-twkk.onrender.com"
   ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// 👉 Enable Swagger
+// Swagger
 swaggerDocs(app);
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 
+// Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Expense Tracker API is running' });
 });
 
+// Global Error Handler
 app.use(errorHandler);
 
 export default app;
