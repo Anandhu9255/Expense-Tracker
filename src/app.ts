@@ -5,32 +5,28 @@ import connectDB from './config/db';
 import authRoutes from './routes/authRoutes';
 import expenseRoutes from './routes/expenseRoutes';
 import { errorHandler } from './middleware/errorHandler';
+import { swaggerDocs } from "./config/swagger";
 
-// Load environment variables
 dotenv.config();
-
-// Connect to database
 connectDB();
 
 const app = express();
 
-// Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-// CORS
 app.use(cors());
+
+// 👉 Enable Swagger
+swaggerDocs(app);
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 
-// Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Expense Tracker API is running' });
 });
 
-// Error handler (must be last)
 app.use(errorHandler);
 
 export default app;
