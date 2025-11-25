@@ -12,9 +12,18 @@ connectDB();
 
 const app = express();
 
+// 👉 FIX CORS COMPLETELY
+app.use(cors({
+  origin: [
+    "http://localhost:5000",
+    "http://localhost:3000",         // frontend (if any)
+    "https://expense-tracker-twkk.onrender.com"
+  ],
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
 
 // 👉 Enable Swagger
 swaggerDocs(app);
