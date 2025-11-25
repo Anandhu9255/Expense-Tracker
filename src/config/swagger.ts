@@ -10,9 +10,10 @@ const options = {
       description: "API documentation for Expense Tracker backend",
     },
     servers: [
-      { url: "http://localhost:5000", description: "Local Server" },
-      { url: "https://expense-tracker-twkk.onrender.com", description: "Render Deployment" }
-    ],
+  { url: "https://expense-tracker-twkk.onrender.com", description: "Render Deployment" },
+  { url: "http://localhost:5000", description: "Local Server" }
+],
+
 
     components: {
       securitySchemes: {
